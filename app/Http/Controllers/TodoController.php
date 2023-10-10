@@ -11,15 +11,20 @@ class TodoController extends Controller
     // Read
     public function index ()
     {
-        $data = Note::all();
+        $data = Todo::all();
         return view('note', compact('data'));
     }
 
     // Create
-    public function create(Request $request, $id)
+    public function create($id)
     {
         $data = Note::find($id);
+        return view('createtodo', compact('data'));
+    }
 
+    // Store Create
+    public function store(Request $request)
+    {
         // Message
         $message=[
             'required'      => 'Please input :attribute',
@@ -31,7 +36,8 @@ class TodoController extends Controller
         $validatedData = $request->validate([
             'todo_name'          => 'required|min:2|max:75',
             'todo_description'   => 'required|max:255',
-            'todo_deadline'      => 'required'
+            'todo_deadline'      => 'required',
+            'status'             => 'required'
         ], $message);
 
         $validatedData['note_id'] = $request->note_id;
@@ -41,8 +47,22 @@ class TodoController extends Controller
         return redirect()->route('note')->with('success', 'Data Created Successfully');
     }
 
+    // Show
+    // public function show(string $id)
+    // {
+    //     $data = Note::find($id)->todo()->get();
+    //     return view('showtodo', compact('data'));
+    // }
+
+    // Edit
+    public function edit(string $id)
+    {
+        $data = Todo::find($id);
+        return view('edittodo', compact('data'));
+    }
+
     // Store Edit
-    public function edit(Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         $data = Todo::find($id);
 
@@ -57,7 +77,8 @@ class TodoController extends Controller
         $validatedData = $request->validate([
             'todo_name'          => 'required|min:2|max:75',
             'todo_description'   => 'required|max:255',
-            'todo_deadline'      => 'required'
+            'todo_deadline'      => 'required',
+            'status'             => 'required'
         ], $message);
 
         $data->update($validatedData);

@@ -1,6 +1,7 @@
 @extends('template')
 
 @section('content')
+
     <!-- Masthead-->
     <header class="masthead">
         <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
@@ -42,20 +43,20 @@
                     <div class="row input-group-newsletter form-signup">
 
                         <div class="col">
-                            <input type="text" class="form-control" name="search" id="search"
-                                    placeholder="Search..." aria-label="search">
-                         </div>
+                            <input type="text" class="form-control" name="search" id="search" placeholder="Search..."
+                                aria-label="search">
+                        </div>
 
                         <div class="col-auto">
 
                             <div class="wrapper">
 
-                             </div>
+                            </div>
 
-                             <a class="btn btn-primary" href="#popup1">
+                            <a class="btn btn-primary" href="#popup1">
                                 <i class="fas fa-plus"></i>
-                                 Create Note
-                               </a>
+                                Create Note
+                            </a>
 
                             <!-- CreateModal -->
                             <div id="popup1" class="overlay">
@@ -65,7 +66,7 @@
                                     <h2>Create Note</h2>
 
                                     <div class="content">
-                                        <a href="/note">Create</a>
+                                        <a href="/note/create">Create</a>
                                         {{-- <form action="POST" action="{{ route('createnote') }}" enctype="multipart/form-data">
                                             @csrf
 
@@ -109,71 +110,91 @@
             <div class="row gx-4 gx-lg-5">
 
                 @foreach ($note as $note)
-                <div class="col-md-6 mb-3 mb-md-4">
-                    <div class="card py-4 h-100">
+                    <div class="col-md-6 mb-3 mb-md-4">
+                        <div class="card py-4 h-100">
 
-                        <div class="card-body">
+                            <div class="card-body">
 
-                            <div class="row">
+                                <div class="row">
 
-                                <div class="col-2 mb-4">
-                                    <select class="custom-dropdown text-start" name="status" id="status">
-                                        <option value="0">New</option>
-                                        <option value="1">Half</option>
-                                        <option value="2">Fin</option>
-                                        <option value="3">Due</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-8 text-center">
-
-                                    <h4 class="text-uppercase m-0">{{ $note->name }}</h4>
-                                    <hr class="my-4 mx-auto" />
-
-                                </div>
-                            </div>
-
-
-                            <div class="row mb-3">
-                                <div class="col-12 btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn btn-outline-warning btn-sm">
-                                        <i class="fas fa-pen"></i>
-                                    </a>
-
-                                    <a class="btn btn-outline-danger btn-sm">
-                                        <i class="fas fa-xmark"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-
-                            <!-- todo -->
-                            <li class="list-group-item" style="max-height: 200px; overflow: auto;">
-                                <div class="small text-black-50">{{ $note->description }}</div>
-                                <br>
-
-                                <div class="row mb-3">
-
-                                    <div class="col-4">
-                                        <select class="custom-dropdown" name="status" id="status" value="{{ $note->status }}">
+                                    <div class="col-2 mb-4">
+                                        <select class="custom-dropdown text-start" name="status" id="status"
+                                            value="{{ $note->status }}">
                                             <option value="0">New</option>
                                             <option value="1">Half</option>
                                             <option value="2">Fin</option>
                                             <option value="3">Due</option>
                                         </select>
                                     </div>
-                                    <div class="col-8">
-                                        Test
-                                    </div>
 
+                                    <div class="col-8 text-center">
+
+                                        <h4 class="text-uppercase m-0">{{ $note->name }}</h4>
+                                        <hr class="my-4 mx-auto" />
+
+                                    </div>
                                 </div>
-                            </li>
-                            <!-- /todo -->
+
+
+                                <div class="mb-3" align="center">
+                                    <div class="text-center btn-group" role="group" aria-label="Basic example">
+                                        <a href="{{ route('editnote', $note->id) }}" class="btn btn-outline-warning btn-sm">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+
+                                        <!-- Delete -->
+                                        <form action="{{ route('destroynote', $note->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-outline-danger btn-sm"
+                                                onclick="return confirm('Delete this Data?')">
+                                                <i class="fas fa-xmark"></i>
+                                            </button>
+                                        </form>
+                                        <!-- /Delete -->
+
+                                        {{-- <a class="btn btn-outline-danger btn-sm">
+                                            <i class="fas fa-xmark"></i>
+                                        </a> --}}
+                                    </div>
+                                </div>
+
+                                <!-- todo -->
+                                <li class="list-group-item" style="max-height: 200px; overflow: auto;">
+                                    <div class="text-black-50">{{ $note->description }}</div>
+                                    <br>
+
+                                    <div class="row mb-3">
+
+                                        {{-- @foreach ($data as $data) --}}
+                                        <div class="col-2">
+                                            <select class="custom-dropdown" name="status" id="status"
+                                                value="">
+                                                <option value="0">New</option>
+                                                <option value="1">Half</option>
+                                                <option value="2">Fin</option>
+                                                <option value="3">Due</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-8">
+                                            Test
+                                            <hr>
+                                        </div>
+
+                                        <div class="col-2">
+
+                                        </div>
+
+                                    </div>
+                                </li>
+                                <!-- /todo -->
+                                {{-- @endforeach --}}
+
+                            </div>
 
                         </div>
-
                     </div>
-                </div>
                 @endforeach
 
             </div>

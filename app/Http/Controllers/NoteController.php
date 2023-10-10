@@ -15,7 +15,12 @@ class NoteController extends Controller
     }
 
     // Create
-    public function create (Request $request)
+    public function create () {
+        return view('createnote');
+    }
+
+    // Store Create
+    public function store (Request $request)
     {
         // Message
         $message=[
@@ -27,7 +32,8 @@ class NoteController extends Controller
         // Validation
         $validatedData = $request->validate([
             'name'          => 'required|min:2|max:75',
-            'description'   => 'required|max:255'
+            'description'   => 'required|max:255',
+            'status'        => 'required'
         ], $message);
 
         Note::create($validatedData);
@@ -35,12 +41,15 @@ class NoteController extends Controller
         return redirect()->route('note')->with('success', 'Data Created Successfully');
     }
 
-    // Store Edit
-    public function edit(Request $request, $id)
-    {
+    // Edit
+    public function edit($id) {
         $note = Note::find($id);
-        return view('note', compact('note'));
+        return view('editnote', compact('note'));
+    }
 
+    // Store Edit
+    public function update(Request $request, $id)
+    {
         // Message
         $message=[
             'required'      => 'Please input :attribute',
@@ -51,7 +60,8 @@ class NoteController extends Controller
         // Validation
         $validatedData = $request->validate([
             'name'          => 'required|min:2|max:75',
-            'description'   => 'required|max:255'
+            'description'   => 'required|max:255',
+            'status'        => 'required'
         ], $message);
 
         Note::where('id', $request->id)->update($validatedData);

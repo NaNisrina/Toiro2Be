@@ -16,10 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 // Note
 Route::get('/', [NoteController::class, 'index'])->name('note');
-// Route::get('/#popup1', [NoteController::class, 'create'])->name('createnote');
-// Route::post('/note', [NoteController::class, 'create'])->name('createnote');
-Route::put('/{id}', [NoteController::class, 'edit'])->name('editnote');
-Route::delete('/{id}', [NoteController::class, 'destroy'])->name('deletenote');
+Route::get('/note/create', [NoteController::class, 'create'])->name('createnote');
+Route::post('/note/store', [NoteController::class, 'store'])->name('storenote');
+Route::get('/note/{id}/edit', [NoteController::class, 'edit'])->name('editnote');
+Route::put('/note/{id}', [NoteController::class, 'update'])->name('updatenote');
+Route::delete('/note/{id}', [NoteController::class, 'destroy'])->name('destroynote');
 
 // Route::get('/', function () {
 //     return view('welcome');
