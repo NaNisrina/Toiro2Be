@@ -193,3 +193,17 @@
     <i class="fas fa-envelope text-primary mb-2"></i>
     <i class="fas fa-mobile-alt text-primary mb-2"></i>
 
+                                        {{-- <div class="col-2">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                      <a class="btn btn-outline-warning btn-sm">
+                                        <i class="fas fa-pen"></i>
+                                      </a>
+                                      <a class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-xmark"></i>
+                                      </a>
+                                    </div>
+                                  </div> --}}
+
+                                                      {{-- <form class="form-signup" id="contactForm" data-sb-form-api-token="API_TOKEN"> --}}
+                    {{-- </form> --}}
+

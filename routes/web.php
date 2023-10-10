@@ -14,8 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Home
+// Note
 Route::get('/', [NoteController::class, 'index'])->name('note');
+// Route::get('/#popup1', [NoteController::class, 'create'])->name('createnote');
+// Route::post('/note', [NoteController::class, 'create'])->name('createnote');
+Route::put('/{id}', [NoteController::class, 'edit'])->name('editnote');
+Route::delete('/{id}', [NoteController::class, 'destroy'])->name('deletenote');
 
 // Route::get('/', function () {
 //     return view('welcome');

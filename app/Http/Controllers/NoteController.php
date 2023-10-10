@@ -7,10 +7,65 @@ use Illuminate\Http\Request;
 
 class NoteController extends Controller
 {
-    // Index
+    // Read
     public function index ()
     {
         $note = Note::all();
         return view('note', compact('note'));
     }
+
+    // Create
+    public function create (Request $request)
+    {
+        // Message
+        $message=[
+            'required'      => 'Please input :attribute',
+            'min'           => 'Field :attribute minimum: :min character',
+            'max'           => 'Field :attribute maximum: :max character',
+        ];
+
+        // Validation
+        $validatedData = $request->validate([
+            'name'          => 'required|min:2|max:75',
+            'description'   => 'required|max:255'
+        ], $message);
+
+        Note::create($validatedData);
+
+        return redirect()->route('note')->with('success', 'Data Created Successfully');
+    }
+
+    // Store Edit
+    public function edit(Request $request, $id)
+    {
+        $note = Note::find($id);
+        return view('note', compact('note'));
+
+        // Message
+        $message=[
+            'required'      => 'Please input :attribute',
+            'min'           => 'Field :attribute minimum: :min character',
+            'max'           => 'Field :attribute maximum: :max character',
+        ];
+
+        // Validation
+        $validatedData = $request->validate([
+            'name'          => 'required|min:2|max:75',
+            'description'   => 'required|max:255'
+        ], $message);
+
+        Note::where('id', $request->id)->update($validatedData);
+
+        return redirect()->route('note')->with('success', 'Data Edited Successfully');
+    }
+
+    // Delete
+    public function destroy ($id)
+    {
+        $note = Note::find($id);
+        $note->delete();
+
+        return redirect()->route('note')->with('success', 'Data Deleted Successfully');
+    }
+
 }
