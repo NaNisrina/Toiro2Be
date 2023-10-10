@@ -11,7 +11,6 @@
                     <h2 class="text-white-50 mx-auto mt-2 mb-5">To Do List of Tomorrow</h2>
 
                     <a class="btn btn-primary" href="#todo">Get Started</a>
-
                 </div>
             </div>
         </div>
@@ -21,12 +20,12 @@
     <section class="signup-section" id="todo">
 
         <!-- Alert Success -->
-        @if (session()->has('success'))
+        {{-- @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: inline-block">
                 {{ session()->get('success') }}
                 <button type="button" class="btn-close" data-bs-dissmiss="alert" aria-label="Close"></button>
             </div>
-        @endif
+        @endif --}}
         <!-- /Alert Success -->
 
         <div class="container px-4 px-lg-5">
@@ -60,32 +59,45 @@
 
                             <!-- CreateModal -->
                             <div id="popup1" class="overlay">
-                                <a class="cancel" href="#"></a>
+                                <a class="cancel" href="#todo"></a>
 
                                 <div class="popup bg-dark text-white">
                                     <h2>Create Note</h2>
 
                                     <div class="content">
-                                        <a href="/note/create">Create</a>
-                                        {{-- <form action="POST" action="{{ route('createnote') }}" enctype="multipart/form-data">
+                                        <form method="POST" action="{{ route('storenote') }}"
+                                            enctype="multipart/form-data">
                                             @csrf
 
                                             <div class="form-group my-3">
-                                                <input class="form-control" type="text" name="name" id="name"
-                                                    placeholder="enter name...">
+                                                <label for="name">Name</label>
+                                                <input type="text" name="name" id="name"
+                                                    class="form-control" placeholder="enter name...">
                                             </div>
 
                                             <div class="form-group my-3">
-                                                <input class="form-control" type="text" name="description" id="description"
-                                                    placeholder="description...">
+                                                <label for="description">Description</label>
+                                                <input type="text" name="description" id="description"
+                                                    class="form-control" placeholder="description...">
                                             </div>
 
-                                            <div class="form-group text-center my-3">
-                                                <input class="btn btn-outline-success" type="submit" value="Save">
+                                            <div class="form-group my-3">
+                                                <label for="status" class="form-label">Status</label>
+                                                <select class="custom-dropdown form-select" name="status" id="status">
+                                                    <option value="0">New</option>
+                                                    <option value="1">Half</option>
+                                                    <option value="2">Fin</option>
+                                                    <option value="3">Due</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group my-3">
+                                                <input class="btn btn-outline-success" type="submit"
+                                                    value="Save">
                                                 <input class="btn btn-outline-danger" type="reset" value="Reset">
                                             </div>
 
-                                        </form> --}}
+                                        </form>
                                     </div>
 
                                 </div>
@@ -117,28 +129,24 @@
 
                                 <div class="row">
 
-                                    <div class="col-2 mb-4">
-                                        <select class="custom-dropdown text-start" name="status" id="status"
+                                    <div class="col-9 d-flex flex-column">
+
+                                        <h4 class="text-uppercase m-0">{{ $note->name }}</h4>
+                                        <h6 class="text-black-50">{{ $note->description }}</h6>
+                                        <hr class="my-4 mx-8" />
+
+                                    </div>
+
+                                    <div class="d-flex flex-column gap-1 col-3 mb-4">
+                                        <select class="custom-dropdown text-start no-padding" name="status" id="status"
                                             value="{{ $note->status }}">
                                             <option value="0">New</option>
                                             <option value="1">Half</option>
                                             <option value="2">Fin</option>
                                             <option value="3">Due</option>
                                         </select>
-                                    </div>
 
-                                    <div class="col-8 text-center">
-
-                                        <h4 class="text-uppercase m-0">{{ $note->name }}</h4>
-                                        <hr class="my-4 mx-auto" />
-
-                                    </div>
-                                </div>
-
-
-                                <div class="mb-3" align="center">
-                                    <div class="text-center btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{ route('editnote', $note->id) }}" class="btn btn-outline-warning btn-sm">
+                                        <a href="{{ route('editnote', $note->id) }}" class="btn btn-outline-warning btn-sm custom-btn">
                                             <i class="fas fa-pen"></i>
                                         </a>
 
@@ -146,7 +154,7 @@
                                         <form action="{{ route('destroynote', $note->id) }}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-outline-danger btn-sm"
+                                            <button class="btn btn-outline-danger btn-sm custom-btn"
                                                 onclick="return confirm('Delete this Data?')">
                                                 <i class="fas fa-xmark"></i>
                                             </button>
@@ -157,39 +165,42 @@
                                             <i class="fas fa-xmark"></i>
                                         </a> --}}
                                     </div>
+
+ 
                                 </div>
 
+
+
+
                                 <!-- todo -->
-                                <li class="list-group-item" style="max-height: 200px; overflow: auto;">
-                                    <div class="text-black-50">{{ $note->description }}</div>
-                                    <br>
+                                <div class="d-flex flex-column gap-3">
+                                    @foreach ($note as $data)
+                                    <li class="list-group-item" style="max-height: 200px; overflow: auto;">
 
-                                    <div class="row mb-3">
+                                        <div class="row align-items-center w-100">
 
-                                        {{-- @foreach ($data as $data) --}}
-                                        <div class="col-2">
-                                            <select class="custom-dropdown" name="status" id="status"
-                                                value="">
-                                                <option value="0">New</option>
-                                                <option value="1">Half</option>
-                                                <option value="2">Fin</option>
-                                                <option value="3">Due</option>
-                                            </select>
+                                            <div class="col-3">
+                                                <select class="custom-dropdown no-padding" name="status" id="status"
+                                                    value="">
+                                                    <option value="0"> 
+                                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-label="Todo" class="color-override"><rect x="1" y="1" width="12" height="12" rx="6" stroke="#e2e2e2" stroke-width="2" fill="none"></rect><path fill="#e2e2e2" stroke="none" d="M 3.5,3.5 L3.5,0 A3.5,3.5 0 0,1 3.5, 0 z" transform="translate(3.5,3.5)"></path></svg>
+                                                        New
+                                                    </option>
+                                                    <option value="1">Half</option>
+                                                    <option value="2">Fin</option>
+                                                    <option value="3">Due</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-8">
+                                                Test
+                                            </div>
+
                                         </div>
-
-                                        <div class="col-8">
-                                            Test
-                                            <hr>
-                                        </div>
-
-                                        <div class="col-2">
-
-                                        </div>
-
-                                    </div>
-                                </li>
-                                <!-- /todo -->
-                                {{-- @endforeach --}}
+                                    </li>
+                                    <!-- /todo -->
+                                    @endforeach
+                                </div>
 
                             </div>
 

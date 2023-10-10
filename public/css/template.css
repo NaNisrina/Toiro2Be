@@ -10,7 +10,12 @@
 	text-align: center;
 }
 .overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 	position: fixed;
+  z-index: 999;
 	top: 0;
 	bottom: 0;
   left: 0;
@@ -35,11 +40,10 @@
 }
 
 .popup {
-	margin: 75px auto;
 	padding: 20px;
 	background: #fff;
 	border: 1px solid #666;
-	width: 300px;
+	width: 40vw;
 	box-shadow: 0 0 50px rgba(0,0,0,0.5);
 	position: relative;
   .light & {
@@ -81,27 +85,26 @@
 
 /* select */
 .custom-dropdown {
-    /* Define your custom styles here */
-    width: 85px; /* Set the width of the dropdown */
-    padding: 10px; /* Add padding for better spacing */
-    border: 1px solid #ccc; /* Add a border */
-    border-radius: 5px; /* Add rounded corners */
-    background-color: #fff; /* Set the background color */
-    font-size: 16px; /* Set the font size */
-    color: #333; /* Set the text color */
+    width: 100%; 
+    padding: 1.25rem 2rem;
+    border-radius: 5px; 
+    background-color: #fff; 
+    font-size: 16px;
+    font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   }
 
-  /* Style the dropdown arrow */
-  .custom-dropdown::after {
-    content: "\25BC"; /* Unicode arrow character (downward arrow) */
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
+.custom-dropdown.no-padding {
+  padding: 8px 16px;
+}
+
+  .custom-btn {
+    padding: 8px 16px;
+    width: 100%;
   }
 
-  /* Style when the dropdown is open */
-  .custom-dropdown:focus {
-    outline: none; /* Remove the default focus outline */
-    border-color: #007bff; /* Change border color on focus */
+  .btn-outline-warning.custom-btn {
+    border: var(--bs-btn-color) solid 1px
+  }
+  .btn-outline-danger.custom-btn {
+    border: var(--bs-btn-color) solid 1px
   }
