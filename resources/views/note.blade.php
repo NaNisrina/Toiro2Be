@@ -58,7 +58,7 @@
                             </a>
 
                             <!-- CreateModal -->
-                            <div id="popup1" class="overlay">
+                            <div id="popup1" class="overlay" style="z-index: 9999">
                                 <a class="cancel" href="#todo"></a>
 
                                 <div class="popup bg-dark text-white">
