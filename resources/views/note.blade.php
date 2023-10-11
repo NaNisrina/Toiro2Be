@@ -138,12 +138,19 @@
                                     </div>
 
                                     <div class="d-flex flex-column gap-1 col-3 mb-4">
-                                        <select class="custom-dropdown text-start no-padding" name="status" id="status"
-                                            value="{{ $note->status }}">
-                                            <option value="0">New</option>
-                                            <option value="1">Half</option>
-                                            <option value="2">Fin</option>
-                                            <option value="3">Due</option>
+                                        <select class="custom-dropdown text-start no-padding" name="status" id="status">
+                                            <option value="0" @if ($note->status == '0')
+                                                selected
+                                            @endif disabled>New</option>
+                                            <option value="1" @if ($note->status == '1')
+                                                selected
+                                            @endif disabled>Half</option>
+                                            <option value="2" @if ($note->status == '2')
+                                                selected
+                                            @endif disabled>Fin</option>
+                                            <option value="3" @if ($note->status == '3')
+                                                selected
+                                            @endif disabled>Due</option>
                                         </select>
 
                                         <a href="{{ route('editnote', $note->id) }}" class="btn btn-outline-warning btn-sm custom-btn">
@@ -185,12 +192,20 @@
                                             <div class="col-3">
                                                 <select class="custom-dropdown no-padding" name="status" id="status"
                                                     value="">
-                                                    <option value="0">
+                                                    <option value="0" @if ($todo->todo_status == '0')
+                                                        selected
+                                                    @endif>
                                                         New
                                                     </option>
-                                                    <option value="1">Half</option>
-                                                    <option value="2">Fin</option>
-                                                    <option value="3">Due</option>
+                                                    <option value="1" @if ($todo->todo_status == '1')
+                                                        selected
+                                                    @endif>Half</option>
+                                                    <option value="2" @if ($todo->todo_status == '2')
+                                                        selected
+                                                    @endif>Fin</option>
+                                                    <option value="3" @if ($todo->todo_status == '3')
+                                                        selected
+                                                    @endif>Due</option>
                                                 </select>
                                             </div>
 

@@ -50,11 +50,19 @@
 
                                                 <div class="form-group my-3">
                                                     <label for="status" class="form-label">Status</label>
-                                                    <select class="custom-dropdown form-select" name="status" id="status" value="{{ $note->status }}">
-                                                        <option value="0">New</option>
-                                                        <option value="1">Half</option>
-                                                        <option value="2">Fin</option>
-                                                        <option value="3">Due</option>
+                                                    <select class="custom-dropdown form-select" name="status" id="status">
+                                                        <option value="0" @if ($note->status == '0')
+                                                            selected
+                                                            @endif>New</option>
+                                                            <option value="1" @if ($note->status == '1')
+                                                                selected
+                                                                @endif>Half</option>
+                                                                <option value="2" @if ($note->status == '2')
+                                                            selected
+                                                        @endif>Fin</option>
+                                                        <option value="3" @if ($note->status == '3')
+                                                            selected
+                                                        @endif>Due</option>
                                                     </select>
                                                 </div>
 
