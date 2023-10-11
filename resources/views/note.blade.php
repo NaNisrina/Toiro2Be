@@ -173,9 +173,9 @@
 
 
                                 <!-- todo -->
-                                <div class="d-flex flex-column gap-3">
+                                <div class="d-flex flex-column gap-3" style="max-height: 200px; overflow: auto;">
                                     @foreach ($note as $data)
-                                    <li class="list-group-item" style="max-height: 200px; overflow: auto;">
+                                    <li class="list-group-item">
 
                                         <div class="row align-items-center w-100">
 
