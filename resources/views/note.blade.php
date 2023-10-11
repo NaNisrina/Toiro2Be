@@ -150,7 +150,6 @@
                                             <i class="fas fa-pen"></i>
                                         </a>
 
-                                        <!-- Delete -->
                                         <form action="{{ route('destroynote', $note->id) }}" method="post">
                                             @csrf
                                             @method('DELETE')
@@ -159,21 +158,22 @@
                                                 <i class="fas fa-xmark"></i>
                                             </button>
                                         </form>
-                                        <!-- /Delete -->
-
-                                        {{-- <a class="btn btn-outline-danger btn-sm">
-                                            <i class="fas fa-xmark"></i>
-                                        </a> --}}
                                     </div>
 
- 
                                 </div>
 
-
-
+                                <form action="{{ route('createtodo', $note->id) }}" method="post">
+                                    @csrf
+                                    @method('POST')
+                                    <button class="btn btn-outline-info btn-sm custom-btn mb-3"
+                                        onclick="return confirm('Delete this Data?')">
+                                        Create Todo
+                                    </button>
+                                </form>
 
                                 <!-- todo -->
                                 <div class="d-flex flex-column gap-3" style="max-height: 200px; overflow: auto;">
+
                                     @foreach ($note as $data)
                                     <li class="list-group-item">
 
