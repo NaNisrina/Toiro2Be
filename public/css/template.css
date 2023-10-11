@@ -97,14 +97,18 @@
   padding: 8px 16px;
 }
 
-  .custom-btn {
-    padding: 8px 16px;
-    width: 100%;
-  }
+.custom-btn {
+  padding: 8px 16px;
+  width: 100%;
+  font-size: 12px;
+}
 
-  .btn-outline-warning.custom-btn {
-    border: var(--bs-btn-color) solid 1px
-  }
-  .btn-outline-danger.custom-btn {
-    border: var(--bs-btn-color) solid 1px
-  }
+.btn-outline-warning.custom-btn {
+  border: var(--bs-btn-color) solid 1px
+}
+.btn-outline-danger.custom-btn {
+  border: var(--bs-btn-color) solid 1px
+}
+.btn-outline-info.custom-btn {
+  border: var(--bs-btn-color) solid 1px
+}
