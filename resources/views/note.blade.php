@@ -162,19 +162,22 @@
 
                                 </div>
 
-                                <form action="{{ route('createtodo', $note->id) }}" method="post">
+                                <a href="{{ route('createtodo', $note->id) }}" class="btn btn-outline-info btn-sm custom-btn mb-3">
+                                    Create Todo
+                                </a>
+
+                                {{-- <form action="{{ route('createtodo', $note->id) }}" method="post">
                                     @csrf
                                     @method('POST')
-                                    <button class="btn btn-outline-info btn-sm custom-btn mb-3"
-                                        onclick="return confirm('Delete this Data?')">
+                                    <button class="btn btn-outline-info btn-sm custom-btn mb-3">
                                         Create Todo
                                     </button>
-                                </form>
+                                </form> --}}
 
                                 <!-- todo -->
                                 <div class="d-flex flex-column gap-3" style="max-height: 200px; overflow: auto;">
 
-                                    @foreach ($note as $data)
+                                    @foreach ($note->todo as $todo)
                                     <li class="list-group-item">
 
                                         <div class="row align-items-center w-100">
@@ -182,8 +185,7 @@
                                             <div class="col-3">
                                                 <select class="custom-dropdown no-padding" name="status" id="status"
                                                     value="">
-                                                    <option value="0"> 
-                                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-label="Todo" class="color-override"><rect x="1" y="1" width="12" height="12" rx="6" stroke="#e2e2e2" stroke-width="2" fill="none"></rect><path fill="#e2e2e2" stroke="none" d="M 3.5,3.5 L3.5,0 A3.5,3.5 0 0,1 3.5, 0 z" transform="translate(3.5,3.5)"></path></svg>
+                                                    <option value="0">
                                                         New
                                                     </option>
                                                     <option value="1">Half</option>
@@ -193,7 +195,7 @@
                                             </div>
 
                                             <div class="col-8">
-                                                Test
+                                                {{$todo->todo_name}}
                                             </div>
 
                                         </div>

@@ -24,7 +24,9 @@ Route::put('/note/{id}', [NoteController::class, 'update'])->name('updatenote');
 Route::delete('/note/{id}', [NoteController::class, 'destroy'])->name('destroynote');
 
 // Todo
-Route::get('/todo/create', [TodoController::class, 'create'])->name('createtodo');
+// Route::get('/', [TodoController::class, 'index'])->name('todo');
+// Route::get('/', [TodoController::class, 'show'])->name('showtodo');
+Route::get('/todo/{id}/create', [TodoController::class, 'create'])->name('createtodo');
 Route::post('/todo/store', [TodoController::class, 'store'])->name('storetodo');
 Route::get('/todo/{id}/edit', [TodoController::class, 'edit'])->name('edittodo');
 Route::put('/todo/{id}/', [TodoController::class, 'update'])->name('updatetodo');

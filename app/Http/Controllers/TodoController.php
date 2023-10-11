@@ -9,11 +9,18 @@ use Illuminate\Http\Request;
 class TodoController extends Controller
 {
     // Read
-    public function index ()
-    {
-        $data = Todo::all();
-        return view('note', compact('data'));
-    }
+    // public function index ()
+    // {
+    //     $note = Note::all('id','name', 'description');
+    //     return view('note', compact('note'));
+    // }
+
+    // Show
+    // public function show(string $id)
+    // {
+    //     $data = Note::find($id)->todo()->get();
+    //     return view('showtodo', compact('data'));
+    // }
 
     // Create
     public function create($id)
@@ -37,12 +44,12 @@ class TodoController extends Controller
             'todo_name'          => 'required|min:2|max:75',
             'todo_description'   => 'required|max:255',
             'todo_deadline'      => 'required',
-            'status'             => 'required'
+            'todo_status'             => 'required'
         ], $message);
 
-        $validatedData['note_id'] = $request->note_id;
+        $request['note_id'] = $request->note_id;
 
-        Todo::create($validatedData);
+        Note::create($validatedData);
 
         return redirect()->route('note')->with('success', 'Data Created Successfully');
     }

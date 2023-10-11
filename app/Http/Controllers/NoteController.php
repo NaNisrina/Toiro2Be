@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use App\Models\Todo;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller
@@ -10,7 +11,7 @@ class NoteController extends Controller
     // Read
     public function index ()
     {
-        $note = Note::all();
+        $note = Note::with('todo')->get();
         return view('note', compact('note'));
     }
 
