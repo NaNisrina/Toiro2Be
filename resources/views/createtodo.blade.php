@@ -49,8 +49,8 @@
                                                 </div>
 
                                                 <div class="form-group my-3">
-                                                    <label for="todo_date">Todo Date</label>
-                                                    <input type="date" name="todo_date" id="todo_date"
+                                                    <label for="todo_deadline">Todo Deadline</label>
+                                                    <input type="date" name="todo_deadline" id="todo_deadline"
                                                         class="form-control">
                                                 </div>
 

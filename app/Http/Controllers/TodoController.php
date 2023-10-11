@@ -32,6 +32,8 @@ class TodoController extends Controller
     // Store Create
     public function store(Request $request)
     {
+        // dd($request);
+
         // Message
         $message=[
             'required'      => 'Please input :attribute',
@@ -44,12 +46,12 @@ class TodoController extends Controller
             'todo_name'          => 'required|min:2|max:75',
             'todo_description'   => 'required|max:255',
             'todo_deadline'      => 'required',
-            'todo_status'             => 'required'
+            'todo_status'        => 'required'
         ], $message);
 
-        $request['note_id'] = $request->note_id;
+        $validatedData['note_id'] = $request->note_id;
 
-        Note::create($validatedData);
+        Todo::create($validatedData);
 
         return redirect()->route('note')->with('success', 'Data Created Successfully');
     }
