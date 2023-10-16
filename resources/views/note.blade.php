@@ -119,6 +119,7 @@
 
             <div class="row gx-4 gx-lg-5">
 
+                <!-- Loop Note -->
                 @foreach ($note as $note)
                     <div class="col-md-6 mb-3 mb-md-4" id="{{ $note->id }}" style="min-height: 500px">
                         <div class="card py-4 h-100">
@@ -225,6 +226,8 @@
 
                                 </div>
 
+
+                                <!-- CRUD Todo -->
                                 <a href="{{ route('createtodo', $note->id) }}"
                                     class="btn btn-outline-info btn-sm custom-btn mb-3">
                                     Create Todo
@@ -241,6 +244,7 @@
                                 <!-- todo -->
                                 <div class="d-flex flex-column gap-3" style="max-height: 200px; overflow: auto;">
 
+                                    <!-- Loop Todo -->
                                     @foreach ($note->todo as $todo)
                                         <div class="row align-items-center w-100 mx-0">
 
@@ -267,7 +271,7 @@
 
                                             <div class="col-3 d-flex justify-content-end p-0 gap-1">
 
-                                                <a href="{{ route('edittodo', $todo->id) }}"
+                                                {{-- <a href="{{ route('edittodo', $todo->id) }}"
                                                     class="btn btn-outline-warning btn-sm custom-btn"
                                                     style="width: unset">
                                                     <i class="fas fa-pen"></i>
@@ -276,15 +280,21 @@
                                                 <a href="#popup-{{ $todo->id }}"
                                                     class="btn btn-outline-info btn-sm custom-btn" style="width: unset">
                                                     <i class="fa-solid fa-eye"></i>
+                                                </a> --}}
+
+                                                <a href="#popup-{{ $todo->id }}"
+                                                    class="btn btn-outline-warning btn-sm custom-btn" style="width: unset">
+                                                    <i class="fas fa-pen"></i>
                                                 </a>
-        
+
                                                 <div id="popup-{{ $todo->id }}" class="overlay" style="z-index: 9999">
                                                     <a class="cancel" href="#{{ $note->id }}"></a>
-        
+
                                                     <div class="popup bg-dark text-white">
-                                                        <h2>Edit Note</h2>
-        
+                                                        <h2>Edit Todo</h2>
+
                                                         <div class="content">
+
                                                             <form method="POST" action="{{ route('updatetodo', $todo->id) }}"
                                                                 enctype="multipart/form-data">
                                                                 @csrf
@@ -295,14 +305,14 @@
                                                                         value="{{ $todo->todo_name }}" class="form-control"
                                                                         placeholder="enter name...">
                                                                 </div>
-        
+
                                                                 <div class="form-group my-3">
                                                                     <label for="description">Description</label>
                                                                     <input type="text" name="description" id="description"
                                                                         value="{{ $todo->todo_description }}" class="form-control"
                                                                         placeholder="description...">
                                                                 </div>
-        
+
                                                                 <div class="form-group my-3">
                                                                     <label for="status" class="form-label">Status</label>
                                                                     <select class="custom-dropdown form-select" name="status"
@@ -321,17 +331,17 @@
                                                                         @endif >Due</option>
                                                                     </select>
                                                                 </div>
-        
+
                                                                 <div class="form-group my-3">
                                                                     <input class="btn btn-outline-success" type="submit"
                                                                         value="Save">
                                                                     <input class="btn btn-outline-danger" type="reset"
                                                                         value="Reset">
                                                                 </div>
-        
                                                             </form>
+
                                                         </div>
-        
+
                                                     </div>
                                                 </div>
 
@@ -350,6 +360,7 @@
                                         </div>
                                         <!-- /todo -->
                                     @endforeach
+                                    <!-- /Loop Todo -->
                                 </div>
 
                             </div>
@@ -357,6 +368,7 @@
                         </div>
                     </div>
                 @endforeach
+                <!-- /Loop Note -->
 
             </div>
 

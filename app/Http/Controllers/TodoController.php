@@ -70,16 +70,16 @@ class TodoController extends Controller
     // }
 
     // Edit
-    public function edit(string $id)
+    public function edit($id)
     {
         $data = Todo::find($id);
         return view('edittodo', compact('data'));
     }
 
     // Store Edit
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        $data = Todo::find($id);
+        // $data = Todo::find($id);
 
         // Message
         $message=[
@@ -93,16 +93,20 @@ class TodoController extends Controller
             'todo_name'          => 'required|min:2|max:75',
             'todo_description'   => 'required|max:255',
             'todo_deadline'      => 'required',
-            'status'             => 'required'
+            'todo_status'        => 'required'
         ], $message);
 
-        $data->update($validatedData);
+        $validatedData['note_id'] = $request->note_id;
+
+        Todo::where('id', $request->id)->update($validatedData);
+
+        // $data->update($validatedData);
 
         return redirect()->route('note')->with('success', 'Data Edited Successfully');
     }
 
     // Delete
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $data = Todo::find($id);
         $data->delete();
