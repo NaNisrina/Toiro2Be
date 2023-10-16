@@ -22,6 +22,12 @@ class TodoController extends Controller
     //     return view('showtodo', compact('data'));
     // }
 
+    // Detail
+    public function detail()
+    {
+        return view('detailtodo');
+    }
+
     // Create
     public function create($id)
     {
