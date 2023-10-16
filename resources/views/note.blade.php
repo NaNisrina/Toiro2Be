@@ -9,7 +9,7 @@
                     <h1 class="mx-auto my-0 text-uppercase">Toiro</h1>
                     <h2 class="text-white-50 mx-auto mt-2 mb-5">To Do List of Tomorrow</h2>
 
-                    <a class="btn btn-primary" href="#todo">Get Started</a>
+                    <a class="btn btn-primary" href="#todo">Go To Todo</a>
                 </div>
             </div>
         </div>
@@ -51,13 +51,14 @@
 
                             </div>
 
-                            <a class="btn btn-primary" href="#popup1">
+                            <!-- CreateNote -->
+                            <a class="btn btn-primary" href="#popup-create-note">
                                 <i class="fas fa-plus"></i>
                                 Create Note
                             </a>
 
                             <!-- CreateModal -->
-                            <div id="popup1" class="overlay" style="z-index: 9999">
+                            <div id="popup-create-note" class="overlay" style="z-index: 9999">
                                 <a class="cancel" href="#todo"></a>
 
                                 <div class="popup bg-dark text-white">
@@ -133,31 +134,42 @@
                                         <h4 class="text-uppercase m-0">{{ $note->name }}</h4>
                                         <h6 class="text-black-50">{{ $note->description }}</h6>
                                         <hr class="my-4 mx-8" />
+                                        {{-- <h4 class="text-black-25 m-0">{{ $note->deadline }}</h4> --}}
+                                        <h4 class="text-black-50 mt-auto">Updated -- {{ $note->updated_at }}</h4>
 
                                     </div>
 
                                     <div class="d-flex flex-column gap-1 col-3 mb-4">
-                                        <select class="custom-dropdown text-start no-padding" name="status" id="status">
-                                            <option value="0" @if ($note->status == '0')
-                                                selected
-                                            @endif disabled>New</option>
-                                            <option value="1" @if ($note->status == '1')
-                                                selected
-                                            @endif disabled>Half</option>
-                                            <option value="2" @if ($note->status == '2')
-                                                selected
-                                            @endif disabled>Fin</option>
-                                            <option value="3" @if ($note->status == '3')
-                                                selected
-                                            @endif disabled>Due</option>
-                                        </select>
+                                        <div class="custom-dropdown text-start no-padding border" name="status" id="status">
+                                            @if ($note->status == '0')
+                                                New
+                                            @endif
+                                            @if ($note->status == '1')
+                                                Half
+                                            @endif
+                                            @if ($note->status == '2')
+                                                Fin
+                                            @endif
+                                            @if ($note->status == '3')
+                                                Due
+                                            @endif
+                                            {{-- <option value="0" @if ($note->status == '0') selected @endif
+                                                disabled>New</option>
+                                            <option value="1" @if ($note->status == '1') selected @endif
+                                                disabled>Half</option>
+                                            <option value="2" @if ($note->status == '2') selected @endif
+                                                disabled>Fin</option>
+                                            <option value="3" @if ($note->status == '3') selected @endif
+                                                disabled>Due</option> --}}
+                                        </div>
 
                                         {{-- <a href="{{ route('editnote', $note->id) }}" class="btn btn-outline-warning btn-sm custom-btn"> --}}
-                                        <a href="#popup-{{ $note->id }}" class="btn btn-outline-warning btn-sm custom-btn">
+                                        <a href="#popup-note-{{ $note->id }}"
+                                            class="btn btn-outline-warning btn-sm custom-btn">
                                             <i class="fas fa-pen"></i>
                                         </a>
 
-                                        <div id="popup-{{ $note->id }}" class="overlay" style="z-index: 9999">
+                                        <div id="popup-note-{{ $note->id }}" class="overlay" style="z-index: 9999">
                                             <a class="cancel" href="#{{ $note->id }}"></a>
 
                                             <div class="popup bg-dark text-white">
@@ -186,18 +198,18 @@
                                                             <label for="status" class="form-label">Status</label>
                                                             <select class="custom-dropdown form-select" name="status"
                                                                 id="status">
-                                                                <option value="0" @if ($note->status == '0')
-                                                                    selected
-                                                                @endif >New</option>
-                                                                <option value="1" @if ($note->status == '1')
-                                                                    selected
-                                                                @endif >Half</option>
-                                                                <option value="2" @if ($note->status == '2')
-                                                                    selected
-                                                                @endif >Fin</option>
-                                                                <option value="3" @if ($note->status == '3')
-                                                                    selected
-                                                                @endif >Due</option>
+                                                                <option value="0"
+                                                                    @if ($note->status == '0') selected @endif>New
+                                                                </option>
+                                                                <option value="1"
+                                                                    @if ($note->status == '1') selected @endif>Half
+                                                                </option>
+                                                                <option value="2"
+                                                                    @if ($note->status == '2') selected @endif>Fin
+                                                                </option>
+                                                                <option value="3"
+                                                                    @if ($note->status == '3') selected @endif>Due
+                                                                </option>
                                                             </select>
                                                         </div>
 
@@ -228,10 +240,76 @@
 
 
                                 <!-- CRUD Todo -->
-                                <a href="{{ route('createtodo', $note->id) }}"
+
+                                <a href="#popup-create-todo-{{ $note->id }}"
                                     class="btn btn-outline-info btn-sm custom-btn mb-3">
                                     Create Todo
                                 </a>
+
+                                <!-- CreateModal -->
+                                <div id="popup-create-todo-{{ $note->id }}" class="overlay" style="z-index: 9999">
+                                    <a class="cancel" href="#{{ $note->id }}"></a>
+
+                                    <div class="popup bg-dark text-white">
+                                        <h2>Create Todo</h2>
+
+                                        <div class="content">
+
+                                            <div class="row input-group-newsletter form-signup">
+
+                                                <form method="POST" action="{{ route('storetodo') }}"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
+
+                                                    <input type="hidden" name="note_id" id="note_id"
+                                                        value="{{ $note->id }}">
+
+                                                    <div class="form-group my-3">
+                                                        <label for="todo_name">Todo Name</label>
+                                                        <input type="text" name="todo_name" id="todo_name"
+                                                            class="form-control" placeholder="enter name...">
+                                                    </div>
+
+                                                    <div class="form-group my-3">
+                                                        <label for="todo_description">Todo Description</label>
+                                                        <input type="text" name="todo_description"
+                                                            id="todo_description" class="form-control"
+                                                            placeholder="description...">
+                                                    </div>
+
+                                                    <div class="form-group my-3">
+                                                        <label for="todo_deadline">Todo Deadline</label>
+                                                        <input type="date" name="todo_deadline" id="todo_deadline"
+                                                            class="form-control">
+                                                    </div>
+
+                                                    <div class="form-group my-3">
+                                                        <label for="todo_status" class="form-label">Todo Status</label>
+                                                        <select class="custom-dropdown form-select" name="todo_status"
+                                                            id="todo_status">
+                                                            <option value="0">New</option>
+                                                            <option value="1">Half</option>
+                                                            <option value="2">Fin</option>
+                                                            <option value="3">Due</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group d-flex justify-content-end">
+                                                        <input class="btn btn-outline-success mx-2" type="submit"
+                                                            value="Save">
+                                                        <input class="btn btn-outline-danger" type="reset"
+                                                            value="Reset">
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- /CreateModal -->
 
                                 {{-- <form action="{{ route('createtodo', $note->id) }}" method="post">
                                     @csrf
@@ -249,24 +327,35 @@
                                         <div class="row align-items-center w-100 mx-0">
 
                                             <div class="col-3">
-                                                <select class="custom-dropdown no-padding" name="status" id="status" value="">
-                                                    <option value="0" @if ($todo->todo_status == '0')
-                                                        selected
-                                                    @endif>New</option>
-                                                    <option value="1" @if ($todo->todo_status == '1')
-                                                        selected
-                                                    @endif>Half</option>
-                                                    <option value="2" @if ($todo->todo_status == '2')
-                                                        selected
-                                                    @endif>Fin</option>
-                                                    <option value="3" @if ($todo->todo_status == '3')
-                                                        selected
-                                                    @endif>Due</option>
-                                                </select>
+                                                <div class="custom-dropdown no-padding border" name="todo_status" id="todo_status"
+                                                    value="">
+                                                    @if ($todo->todo_status == '0')
+                                                        New
+                                                    @endif
+                                                    @if ($todo->todo_status == '1')
+                                                        Half
+                                                    @endif
+                                                    @if ($todo->todo_status == '2')
+                                                        Fin
+                                                    @endif
+                                                    @if ($todo->todo_status == '3')
+                                                        Due
+                                                    @endif
+                                                    {{-- <option value="0"
+                                                        @if ($todo->todo_status == '0') selected @endif>New</option>
+                                                    <option value="1"
+                                                        @if ($todo->todo_status == '1') selected @endif>Half</option>
+                                                    <option value="2"
+                                                        @if ($todo->todo_status == '2') selected @endif>Fin</option>
+                                                    <option value="3"
+                                                        @if ($todo->todo_status == '3') selected @endif>Due</option> --}}
+                                                </div>
                                             </div>
 
-                                            <div class="col-6">
-                                                {{ $todo->todo_name }}
+                                            <div class="col-6 d-flex flex-column">
+                                                <h4 class="text-uppercase m-0">{{ $todo->todo_name }}</h4>
+
+                                                <h6 class="text-black-50  m-0">{{ $todo->todo_description }}</h6>
                                             </div>
 
                                             <div class="col-3 d-flex justify-content-end p-0 gap-1">
@@ -282,12 +371,14 @@
                                                     <i class="fa-solid fa-eye"></i>
                                                 </a> --}}
 
-                                                <a href="#popup-{{ $todo->id }}"
-                                                    class="btn btn-outline-warning btn-sm custom-btn" style="width: unset">
+                                                <a href="#popup-todo-{{ $todo->id }}"
+                                                    class="btn btn-outline-warning btn-sm custom-btn"
+                                                    style="width: unset">
                                                     <i class="fas fa-pen"></i>
                                                 </a>
 
-                                                <div id="popup-{{ $todo->id }}" class="overlay" style="z-index: 9999">
+                                                <div id="popup-todo-{{ $todo->id }}" class="overlay"
+                                                    style="z-index: 9999">
                                                     <a class="cancel" href="#{{ $note->id }}"></a>
 
                                                     <div class="popup bg-dark text-white">
@@ -295,40 +386,50 @@
 
                                                         <div class="content">
 
-                                                            <form method="POST" action="{{ route('updatetodo', $todo->id) }}"
+                                                            <form method="POST"
+                                                                action="{{ route('updatetodo', $todo->id) }}"
                                                                 enctype="multipart/form-data">
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <div class="form-group my-3">
                                                                     <label for="name">Name</label>
-                                                                    <input type="text" name="name" id="name"
-                                                                        value="{{ $todo->todo_name }}" class="form-control"
-                                                                        placeholder="enter name...">
+                                                                    <input type="text" name="todo_name" id="name"
+                                                                        value="{{ $todo->todo_name }}"
+                                                                        class="form-control" placeholder="enter name...">
                                                                 </div>
 
                                                                 <div class="form-group my-3">
                                                                     <label for="description">Description</label>
-                                                                    <input type="text" name="description" id="description"
-                                                                        value="{{ $todo->todo_description }}" class="form-control"
-                                                                        placeholder="description...">
+                                                                    <input type="text" name="todo_description"
+                                                                        id="description"
+                                                                        value="{{ $todo->todo_description }}"
+                                                                        class="form-control" placeholder="description...">
                                                                 </div>
 
                                                                 <div class="form-group my-3">
-                                                                    <label for="status" class="form-label">Status</label>
-                                                                    <select class="custom-dropdown form-select" name="status"
-                                                                        id="status">
-                                                                        <option value="0" @if ($todo->todo_status == '0')
-                                                                            selected
-                                                                        @endif >New</option>
-                                                                        <option value="1" @if ($todo->todo_status == '1')
-                                                                            selected
-                                                                        @endif >Half</option>
-                                                                        <option value="2" @if ($todo->todo_status == '2')
-                                                                            selected
-                                                                        @endif >Fin</option>
-                                                                        <option value="3" @if ($todo->todo_status == '3')
-                                                                            selected
-                                                                        @endif >Due</option>
+                                                                    <label for="todo_deadline">Todo Deadline</label>
+                                                                    <input type="date" name="todo_deadline"
+                                                                        id="todo_deadline" class="form-control"
+                                                                        value="{{ $todo->todo_deadline }}">
+                                                                </div>
+
+                                                                <div class="form-group my-3">
+                                                                    <label for="status"
+                                                                        class="form-label">Status</label>
+                                                                    <select class="custom-dropdown form-select"
+                                                                        name="todo_status" id="status">
+                                                                        <option value="0"
+                                                                            @if ($todo->todo_status == '0') selected @endif>
+                                                                            New</option>
+                                                                        <option value="1"
+                                                                            @if ($todo->todo_status == '1') selected @endif>
+                                                                            Half</option>
+                                                                        <option value="2"
+                                                                            @if ($todo->todo_status == '2') selected @endif>
+                                                                            Fin</option>
+                                                                        <option value="3"
+                                                                            @if ($todo->todo_status == '3') selected @endif>
+                                                                            Due</option>
                                                                     </select>
                                                                 </div>
 
@@ -350,7 +451,7 @@
                                                     @method('DELETE')
                                                     <button class="btn btn-outline-danger btn-sm custom-btn"
                                                         onclick="return confirm('Delete this Data?')"
-                                                        style="width: unset">
+                                                        style="width: 45.6px">
                                                         <i class="fas fa-xmark"></i>
                                                     </button>
                                                 </form>

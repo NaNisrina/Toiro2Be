@@ -79,7 +79,9 @@ class TodoController extends Controller
     // Store Edit
     public function update(Request $request, $id)
     {
-        // $data = Todo::find($id);
+        $data = Todo::find($id);
+
+        // dd($request);
 
         // Message
         $message=[
@@ -96,11 +98,13 @@ class TodoController extends Controller
             'todo_status'        => 'required'
         ], $message);
 
-        $validatedData['note_id'] = $request->note_id;
+        // $validatedData['note_id'] = $request->note_id;
 
-        Todo::where('id', $request->id)->update($validatedData);
+        // dd($validatedData);
 
-        // $data->update($validatedData);
+        // Todo::where('id', $request->id)->update($validatedData);
+
+        $data->update($validatedData);
 
         return redirect()->route('note')->with('success', 'Data Edited Successfully');
     }

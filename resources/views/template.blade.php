@@ -36,13 +36,44 @@
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    {{-- <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li> --}}
-                    <li class="nav-item"><a class="nav-link" href="#todo">Todo</a></li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="#">Todo</a></li> --}}
+                    {{-- <li class="nav-item"><a class="nav-link" href="#popup-profile">{{ auth()->user()->name }}</a></li> --}}
+                    <a class="nav-link" href="#popup-profile">
+                        {{ auth()->user()->name }}
+                        <i class="fas fa-user"></i>
+                    </a>
+                    {{-- <li class="nav-item"><a class="nav-link" href="#todo">Todo</a></li> --}}
+
+                    <!-- Modal -->
+                    <div id="popup-profile" class="overlay" style="z-index: 9999">
+                        <a class="cancel" href="#"></a>
+
+                        <div class="popup bg-dark text-white text-center">
+                            <h2 class="mt-3">Do you want to Logout?</h2>
+
+                            <div class="content">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+                                    <div class="form-group my-3">
+                                        <a href="#" class="btn btn-outline-danger" type="button">No</a>
+                                        {{-- <input class="btn btn-outline-danger" type="button" value="No"> --}}
+                                        <input class="btn btn-outline-success" type="submit" value="Yes">
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Modal -->
+
                 </ul>
             </div>
+
         </div>
     </nav>
 
@@ -52,15 +83,15 @@
     <footer class="footer bg-black small text-center text-white-50">
         <div class="container px-4 px-lg-5">Copyright &copy; Toiro 2023</div>
     </footer>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
 </body>
 
 </html>
