@@ -1,7 +1,6 @@
 @extends('template')
 
 @section('content')
-
     <!-- Masthead-->
     <header class="masthead">
         <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
@@ -71,8 +70,8 @@
 
                                             <div class="form-group my-3">
                                                 <label for="name">Name</label>
-                                                <input type="text" name="name" id="name"
-                                                    class="form-control" placeholder="enter name...">
+                                                <input type="text" name="name" id="name" class="form-control"
+                                                    placeholder="enter name...">
                                             </div>
 
                                             <div class="form-group my-3">
@@ -92,8 +91,7 @@
                                             </div>
 
                                             <div class="form-group my-3">
-                                                <input class="btn btn-outline-success" type="submit"
-                                                    value="Save">
+                                                <input class="btn btn-outline-success" type="submit" value="Save">
                                                 <input class="btn btn-outline-danger" type="reset" value="Reset">
                                             </div>
 
@@ -122,7 +120,7 @@
             <div class="row gx-4 gx-lg-5">
 
                 @foreach ($note as $note)
-                    <div class="col-md-6 mb-3 mb-md-4">
+                    <div class="col-md-6 mb-3 mb-md-4" style="min-height: 500px">
                         <div class="card py-4 h-100">
 
                             <div class="card-body">
@@ -138,17 +136,82 @@
                                     </div>
 
                                     <div class="d-flex flex-column gap-1 col-3 mb-4">
-                                        <select class="custom-dropdown text-start no-padding" name="status" id="status"
-                                            value="{{ $note->status }}">
-                                            <option value="0">New</option>
-                                            <option value="1">Half</option>
-                                            <option value="2">Fin</option>
-                                            <option value="3">Due</option>
+                                        <select class="custom-dropdown text-start no-padding" name="status" id="status">
+                                            <option value="0" @if ($note->status == '0')
+                                                selected
+                                            @endif disabled>New</option>
+                                            <option value="1" @if ($note->status == '1')
+                                                selected
+                                            @endif disabled>Half</option>
+                                            <option value="2" @if ($note->status == '2')
+                                                selected
+                                            @endif disabled>Fin</option>
+                                            <option value="3" @if ($note->status == '3')
+                                                selected
+                                            @endif disabled>Due</option>
                                         </select>
 
-                                        <a href="{{ route('editnote', $note->id) }}" class="btn btn-outline-warning btn-sm custom-btn">
+                                        {{-- <a href="{{ route('editnote', $note->id) }}" class="btn btn-outline-warning btn-sm custom-btn"> --}}
+                                        <a href="#popup-edit-note" class="btn btn-outline-warning btn-sm custom-btn">
                                             <i class="fas fa-pen"></i>
                                         </a>
+
+                                        <div id="popup-edit-note" class="overlay" style="z-index: 9999">
+                                            <a class="cancel" href="#todo"></a>
+
+                                            <div class="popup bg-dark text-white">
+                                                <h2>Edit Note</h2>
+
+                                                <div class="content">
+                                                    <form method="POST" action="{{ route('updatenote', $note->id) }}"
+                                                        enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="form-group my-3">
+                                                            <label for="name">Name</label>
+                                                            <input type="text" name="name" id="name"
+                                                                value="{{ $note->name }}" class="form-control"
+                                                                placeholder="enter name...">
+                                                        </div>
+
+                                                        <div class="form-group my-3">
+                                                            <label for="description">Description</label>
+                                                            <input type="text" name="description" id="description"
+                                                                value="{{ $note->description }}" class="form-control"
+                                                                placeholder="description...">
+                                                        </div>
+
+                                                        <div class="form-group my-3">
+                                                            <label for="status" class="form-label">Status</label>
+                                                            <select class="custom-dropdown form-select" name="status"
+                                                                id="status">
+                                                                <option value="0" @if ($note->status == '0')
+                                                                    selected
+                                                                @endif >New</option>
+                                                                <option value="1" @if ($note->status == '1')
+                                                                    selected
+                                                                @endif >Half</option>
+                                                                <option value="2" @if ($note->status == '2')
+                                                                    selected
+                                                                @endif >Fin</option>
+                                                                <option value="3" @if ($note->status == '3')
+                                                                    selected
+                                                                @endif >Due</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group my-3">
+                                                            <input class="btn btn-outline-success" type="submit"
+                                                                value="Save">
+                                                            <input class="btn btn-outline-danger" type="reset"
+                                                                value="Reset">
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
 
                                         <form action="{{ route('destroynote', $note->id) }}" method="post">
                                             @csrf
@@ -162,7 +225,8 @@
 
                                 </div>
 
-                                <a href="{{ route('createtodo', $note->id) }}" class="btn btn-outline-info btn-sm custom-btn mb-3">
+                                <a href="{{ route('createtodo', $note->id) }}"
+                                    class="btn btn-outline-info btn-sm custom-btn mb-3">
                                     Create Todo
                                 </a>
 
@@ -178,29 +242,56 @@
                                 <div class="d-flex flex-column gap-3" style="max-height: 200px; overflow: auto;">
 
                                     @foreach ($note->todo as $todo)
-                                    <li class="list-group-item">
-
-                                        <div class="row align-items-center w-100">
+                                        <div class="row align-items-center w-100 mx-0">
 
                                             <div class="col-3">
-                                                <select class="custom-dropdown no-padding" name="status" id="status"
-                                                    value="">
-                                                    <option value="0">
-                                                        New
-                                                    </option>
-                                                    <option value="1">Half</option>
-                                                    <option value="2">Fin</option>
-                                                    <option value="3">Due</option>
+                                                <select class="custom-dropdown no-padding" name="status" id="status" value="">
+                                                            <option value="0" @if ($todo->todo_status == '0')
+                                                                selected
+                                                            @endif>New</option>
+                                                            <option value="1" @if ($todo->todo_status == '1')
+                                                                selected
+                                                            @endif>Half</option>
+                                                            <option value="2" @if ($todo->todo_status == '2')
+                                                                selected
+                                                            @endif>Fin</option>
+                                                            <option value="3" @if ($todo->todo_status == '3')
+                                                                selected
+                                                            @endif>Due</option>
                                                 </select>
                                             </div>
 
-                                            <div class="col-8">
-                                                {{$todo->todo_name}}
+                                            <div class="col-6">
+                                                {{ $todo->todo_name }}
+                                            </div>
+
+                                            <div class="col-3 d-flex justify-content-end p-0 gap-1">
+
+                                                <a href="{{ route('edittodo', $todo->id) }}"
+                                                    class="btn btn-outline-warning btn-sm custom-btn"
+                                                    style="width: unset">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+
+                                                <a href="{{ route('detailtodo', $todo->id) }}"
+                                                    class="btn btn-outline-info btn-sm custom-btn" style="width: unset">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </a>
+
+                                                <form action="{{ route('destroytodo', $todo->id) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-outline-danger btn-sm custom-btn"
+                                                        onclick="return confirm('Delete this Data?')"
+                                                        style="width: unset">
+                                                        <i class="fas fa-xmark"></i>
+                                                    </button>
+                                                </form>
+
                                             </div>
 
                                         </div>
-                                    </li>
-                                    <!-- /todo -->
+                                        <!-- /todo -->
                                     @endforeach
                                 </div>
 

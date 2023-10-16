@@ -21,7 +21,7 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/template.css">
+    <link rel="stylesheet" href="{{ asset('css/template.css') }}">
 
 </head>
 
