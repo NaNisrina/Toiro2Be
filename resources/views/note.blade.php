@@ -135,8 +135,8 @@
                                         <h6 class="text-black-50">{{ $note->description }}</h6>
                                         <hr class="my-4 mx-8" />
                                         {{-- <h4 class="text-black-25 m-0">{{ $note->deadline }}</h4> --}}
-                                        <h4 class="text-black-50 mt-auto">Updated -- {{ $note->updated_at }}</h4>
-
+                                        <span class="badge badge-success mt-auto align-self-start">{{ $note->updated_at }}</span>
+                                        {{-- <h4 class="text-black-50 mt-auto">Updated -- {{ $note->updated_at }}</h4> --}}
                                     </div>
 
                                     <div class="d-flex flex-column gap-1 col-3 mb-4">

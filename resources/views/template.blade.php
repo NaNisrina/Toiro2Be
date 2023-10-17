@@ -25,7 +25,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" >
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container px-4 px-lg-5">
@@ -41,11 +41,14 @@
                 <ul class="navbar-nav ms-auto">
                     {{-- <li class="nav-item"><a class="nav-link" href="#">Todo</a></li> --}}
                     {{-- <li class="nav-item"><a class="nav-link" href="#popup-profile">{{ auth()->user()->name }}</a></li> --}}
-                    <a class="nav-link" href="#popup-profile">
-                        {{ auth()->user()->name }}
-                        <i class="fas fa-user"></i>
-                    </a>
+                    
                     {{-- <li class="nav-item"><a class="nav-link" href="#todo">Todo</a></li> --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#popup-profile">
+                            {{ auth()->user()->name }}
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </li>
 
                     <!-- Modal -->
                     <div id="popup-profile" class="overlay" style="z-index: 9999">
@@ -92,6 +95,17 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <!-- * *                               SB Forms JS                               * *-->
+    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    
 </body>
 
 </html>

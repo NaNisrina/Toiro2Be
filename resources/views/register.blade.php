@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100vh">
 
 <head>
     <meta charset="UTF-8">
@@ -24,13 +24,11 @@
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
 
-<body>
+<body class="p-5" style="height: 100vh">
 
-    <div class="form-bg d-flex justify-content-center mx-5 my-5 px-5 py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
-                    <div class="form-container">
+    <div class="form-bg d-flex justify-content-center p-5 h-100">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 h-100 d-flex align-items-center">
+            <div class="form-container flex-fill">
 
                         <!-- Errors -->
                         @if ($errors->any())

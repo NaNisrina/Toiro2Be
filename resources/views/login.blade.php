@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100vh">
 
 <head>
     <meta charset="UTF-8">
@@ -24,51 +24,47 @@
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 </head>
 
-<body>
+<body class="p-5" style="height: 100vh">
 
-    <div class="form-bg d-flex justify-content-center mx-5 my-5 px-5 py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
-                    <div class="form-container">
+    <div class="form-bg d-flex justify-content-center p-5 h-100">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 h-100 d-flex align-items-center">
+            <div class="form-container flex-fill">
 
-                        <!-- Errors -->
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <!-- /Errors -->
-
-                        <form class="form-horizontal" action="{{ route('login.auth') }}" method="POST">
-                            @csrf
-
-                            <h3 class="title">Login</h3>
-                            <span class="description">To Toiro</span>
-
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input class="form-control" name="email" id="email" type="email" placeholder="enter email...">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input class="form-control" name="password" id="password" type="password" placeholder="enter password...">
-                            </div>
-
-                            <button class="btn signin" type="submit">Login</button>
-                            <span class="signup">or <a href="/register">Register</a></span>
-                            {{-- <span class="forgot"><a href="">Forgot Password?</a></span> --}}
-
-                        </form>
-
-
+                <!-- Errors -->
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                </div>
+                @endif
+                <!-- /Errors -->
+
+                <form class="form-horizontal" action="{{ route('login.auth') }}" method="POST">
+                    @csrf
+
+                    <h3 class="title">Login</h3>
+                    <span class="description">To Toiro</span>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input class="form-control" name="email" id="email" type="email" placeholder="enter email...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" name="password" id="password" type="password" placeholder="enter password...">
+                    </div>
+
+                    <button class="btn signin" type="submit">Login</button>
+                    <span class="signup">or <a href="/register">Register</a></span>
+                    {{-- <span class="forgot"><a href="">Forgot Password?</a></span> --}}
+
+                </form>
+
+
             </div>
         </div>
     </div>
