@@ -92,6 +92,12 @@
                                             </div>
 
                                             <div class="form-group my-3">
+                                                <label for="category">Category</label>
+                                                <input type="text" name="category" id="category" class="form-control"
+                                                    placeholder="category...">
+                                            </div>
+
+                                            <div class="form-group my-3">
                                                 <input class="btn btn-outline-success" type="submit" value="Save">
                                                 <input class="btn btn-outline-danger" type="reset" value="Reset">
                                             </div>
@@ -135,8 +141,8 @@
                                         <h6 class="text-black-50">{{ $note->description }}</h6>
                                         <hr class="my-4 mx-8" />
                                         {{-- <h4 class="text-black-25 m-0">{{ $note->deadline }}</h4> --}}
-                                        <span class="badge bg-warning mt-auto mb-4 align-self-start">SCHOOL</span>
-                                        
+                                        <span class="badge bg-danger mt-auto mb-4 align-self-start">Category: {{ $note->category }}</span>
+
                                         {{-- <h4 class="text-black-50 mt-auto">Updated -- {{ $note->updated_at }}</h4> --}}
                                     </div>
 
@@ -212,6 +218,13 @@
                                                                     @if ($note->status == '3') selected @endif>Due
                                                                 </option>
                                                             </select>
+                                                        </div>
+
+                                                        <div class="form-group my-3">
+                                                            <label for="category">Category</label>
+                                                            <input type="text" name="category" id="category"
+                                                                value="{{ $note->category }}" class="form-control"
+                                                                    placeholder="category...">
                                                         </div>
 
                                                         <div class="form-group my-3">
@@ -354,11 +367,12 @@
                                             </div>
 
                                             <div class="col-6 d-flex justify-content-start">
- 
-                                                
+
+
 
                                                 <div class="d-flex flex-column">
-                                                    <span class="badge bg-success mb-2 align-self-start">{{ date("d-m-Y", strtotime($note->updated_at)) }}</span>
+                                                    {{-- <span class="badge bg-success mb-2 align-self-start">{{ date("d-m-Y", strtotime($note->updated_at)) }}</span> --}}
+                                                    <span class="badge bg-danger mb-2 align-self-start">{{{ date("d-m-Y", strtotime($todo->todo_deadline)) }}}</span>
 
                                                     <h4 class="text-uppercase m-0">{{ $todo->todo_name }}</h4>
 

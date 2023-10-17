@@ -34,7 +34,8 @@ class NoteController extends Controller
         $validatedData = $request->validate([
             'name'          => 'required|min:2|max:75',
             'description'   => 'required|max:255',
-            'status'        => 'required'
+            'status'        => 'required',
+            'category'      => '',
         ], $message);
 
         Note::create($validatedData);
@@ -62,7 +63,8 @@ class NoteController extends Controller
         $validatedData = $request->validate([
             'name'          => 'required|min:2|max:75',
             'description'   => 'required|max:255',
-            'status'        => 'required'
+            'status'        => 'required',
+            'category'      => '',
         ], $message);
 
         Note::where('id', $request->id)->update($validatedData);
