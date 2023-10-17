@@ -112,3 +112,7 @@
 .btn-outline-info.custom-btn {
   border: var(--bs-btn-color) solid 1px
 }
+
+.hidden { 
+  display: none;
+}
