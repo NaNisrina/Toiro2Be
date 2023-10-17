@@ -135,7 +135,8 @@
                                         <h6 class="text-black-50">{{ $note->description }}</h6>
                                         <hr class="my-4 mx-8" />
                                         {{-- <h4 class="text-black-25 m-0">{{ $note->deadline }}</h4> --}}
-                                        <span class="badge badge-success mt-auto align-self-start">{{ $note->updated_at }}</span>
+                                        <span class="badge bg-warning mt-auto mb-4 align-self-start">SCHOOL</span>
+                                        
                                         {{-- <h4 class="text-black-50 mt-auto">Updated -- {{ $note->updated_at }}</h4> --}}
                                     </div>
 
@@ -320,11 +321,11 @@
                                 </form> --}}
 
                                 <!-- todo -->
-                                <div class="d-flex flex-column gap-3" style="max-height: 200px; overflow: auto;">
+                                <div class="d-flex flex-column gap-3" style="height: 100%; max-height: 230px; overflow: auto;">
 
                                     <!-- Loop Todo -->
                                     @foreach ($note->todo as $todo)
-                                        <div class="row align-items-center w-100 mx-0">
+                                        <div class="row align-items-start w-100 mx-0">
 
                                             <div class="col-3">
                                                 <div class="custom-dropdown no-padding border" name="todo_status" id="todo_status"
@@ -352,10 +353,17 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-6 d-flex flex-column">
-                                                <h4 class="text-uppercase m-0">{{ $todo->todo_name }}</h4>
+                                            <div class="col-6 d-flex justify-content-start">
+ 
+                                                
 
-                                                <h6 class="text-black-50  m-0">{{ $todo->todo_description }}</h6>
+                                                <div class="d-flex flex-column">
+                                                    <span class="badge bg-success mb-2 align-self-start">{{ date("d-m-Y", strtotime($note->updated_at)) }}</span>
+
+                                                    <h4 class="text-uppercase m-0">{{ $todo->todo_name }}</h4>
+
+                                                    <h6 class="text-black-50  m-0">{{ $todo->todo_description }}</h6>
+                                                </div>
                                             </div>
 
                                             <div class="col-3 d-flex justify-content-end p-0 gap-1">
