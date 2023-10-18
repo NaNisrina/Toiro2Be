@@ -138,7 +138,7 @@
                                             <div class="form-group my-3">
                                                 <label for="category">Category</label>
                                                 <input type="text" name="category" id="category" class="form-control"
-                                                    placeholder="category...">
+                                                    placeholder="category..." value="general">
                                             </div>
 
                                             <div class="form-group my-3">
