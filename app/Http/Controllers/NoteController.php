@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Note;
 use App\Models\Todo;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
     // Read
     public function index ()
     {
-        $note = Note::with('todo')->get();
+        $note = Note::with('todo')->where('user_id', '=', Auth::user()->id)->get();
+        // ->where(user_id, '=' , Auth::user()->id)
         return view('note', compact('note'));
     }
 
@@ -36,6 +39,7 @@ class NoteController extends Controller
             'description'   => 'required|max:255',
             'status'        => 'required',
             'category'      => '',
+            'user_id'       => '',
         ], $message);
 
         Note::create($validatedData);
@@ -65,6 +69,7 @@ class NoteController extends Controller
             'description'   => 'required|max:255',
             'status'        => 'required',
             'category'      => '',
+            'user_id'       => '',
         ], $message);
 
         Note::where('id', $request->id)->update($validatedData);

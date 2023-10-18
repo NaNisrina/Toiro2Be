@@ -110,6 +110,9 @@
                                             enctype="multipart/form-data">
                                             @csrf
 
+                                            <input type="hidden" name="user_id" id="user_id"
+                                            value="{{ Auth::user()->id }}">
+
                                             <div class="form-group my-3">
                                                 <label for="name">Name</label>
                                                 <input type="text" name="name" id="name" class="form-control"
