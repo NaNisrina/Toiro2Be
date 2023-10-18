@@ -55,10 +55,26 @@
                                         noteContainers.forEach(function (container) {
                                             const h4Note = container.querySelector("#note-name");
                                             const h6Note = container.querySelector("#note-description");
+                                            const h4Todo = container.querySelector("#todo-name");
+                                            const h6Todo = container.querySelector("#todo-description");
+
+                                            // Check if h4Note exists and contains text
+                                            const hasH4Note = h4Note && h4Note.textContent;
+                                            
+                                            // Check if h6Note exists and contains text
+                                            const hasH6Note = h6Note && h6Note.textContent;
+                                            
+                                            // Check if h4Todo exists and contains text
+                                            const hasH4Todo = h4Todo && h4Todo.textContent;
+                                            
+                                            // Check if h6Todo exists and contains text
+                                            const hasH6Todo = h6Todo && h6Todo.textContent
 
                                             if (
-                                                h4Note.textContent.toLowerCase().includes(searchTerm) || 
-                                                h6Note.textContent.toLowerCase().includes(searchTerm)
+                                                (hasH4Note && h4Note.textContent.toLowerCase().includes(searchTerm)) || 
+                                                (hasH6Note && h6Note.textContent.toLowerCase().includes(searchTerm)) ||
+                                                (hasH4Todo && h4Todo.textContent.toLowerCase().includes(searchTerm)) ||
+                                                (hasH6Todo && h6Todo.textContent.toLowerCase().includes(searchTerm))
                                             ) {
                                                 container.classList.remove("hidden");
                                             } else {
@@ -153,14 +169,14 @@
 
                 <!-- Loop Note -->
                 @foreach ($note as $note)
-                    <div class="col-md-6 mb-3 mb-md-4 note-container" id="{{ $note->id }}" style="min-height: 500px" id>
+                    <div class="col-lg-6 mb-3 mb-md-4 note-container" id="{{ $note->id }}" style="min-height: 500px" id>
                         <div class="card py-4 h-100">
 
                             <div class="card-body">
 
                                 <div class="row">
 
-                                    <div class="col-9 d-flex flex-column">
+                                    <div class="col-8 col-xl-9 d-flex flex-column">
 
                                         <h4 class="text-uppercase m-0" id="note-name">{{ $note->name }}</h4>
                                         <h6 class="text-black-50" id="note-description">{{ $note->description }}</h6>
@@ -169,7 +185,7 @@
 
                                     </div>
 
-                                    <div class="d-flex flex-column gap-1 col-3 mb-4">
+                                    <div class="d-flex flex-column gap-1 col-4 col-xl-3 mb-4">
                                         <div class="custom-dropdown text-start no-padding border d-flex gap-2 align-items-center" name="status" id="status">
                                             @if ($note->status == '0')
                                                 <svg width="14" height="14" viewBox="0 0 15 15" aria-label="Backlog" fill="#558985" class="color-override"><path d="M13.9408 7.91426L11.9576 7.65557C11.9855 7.4419 12 7.22314 12 7C12 6.77686 11.9855 6.5581 11.9576 6.34443L13.9408 6.08573C13.9799 6.38496 14 6.69013 14 7C14 7.30987 13.9799 7.61504 13.9408 7.91426ZM13.4688 4.32049C13.2328 3.7514 12.9239 3.22019 12.5538 2.73851L10.968 3.95716C11.2328 4.30185 11.4533 4.68119 11.6214 5.08659L13.4688 4.32049ZM11.2615 1.4462L10.0428 3.03204C9.69815 2.76716 9.31881 2.54673 8.91341 2.37862L9.67951 0.531163C10.2486 0.767153 10.7798 1.07605 11.2615 1.4462ZM7.91426 0.0591659L7.65557 2.04237C7.4419 2.01449 7.22314 2 7 2C6.77686 2 6.5581 2.01449 6.34443 2.04237L6.08574 0.059166C6.38496 0.0201343 6.69013 0 7 0C7.30987 0 7.61504 0.0201343 7.91426 0.0591659ZM4.32049 0.531164L5.08659 2.37862C4.68119 2.54673 4.30185 2.76716 3.95716 3.03204L2.73851 1.4462C3.22019 1.07605 3.7514 0.767153 4.32049 0.531164ZM1.4462 2.73851L3.03204 3.95716C2.76716 4.30185 2.54673 4.68119 2.37862 5.08659L0.531164 4.32049C0.767153 3.7514 1.07605 3.22019 1.4462 2.73851ZM0.0591659 6.08574C0.0201343 6.38496 0 6.69013 0 7C0 7.30987 0.0201343 7.61504 0.059166 7.91426L2.04237 7.65557C2.01449 7.4419 2 7.22314 2 7C2 6.77686 2.01449 6.5581 2.04237 6.34443L0.0591659 6.08574ZM0.531164 9.67951L2.37862 8.91341C2.54673 9.31881 2.76716 9.69815 3.03204 10.0428L1.4462 11.2615C1.07605 10.7798 0.767153 10.2486 0.531164 9.67951ZM2.73851 12.5538L3.95716 10.968C4.30185 11.2328 4.68119 11.4533 5.08659 11.6214L4.32049 13.4688C3.7514 13.2328 3.22019 12.9239 2.73851 12.5538ZM6.08574 13.9408L6.34443 11.9576C6.5581 11.9855 6.77686 12 7 12C7.22314 12 7.4419 11.9855 7.65557 11.9576L7.91427 13.9408C7.61504 13.9799 7.30987 14 7 14C6.69013 14 6.38496 13.9799 6.08574 13.9408ZM9.67951 13.4688L8.91341 11.6214C9.31881 11.4533 9.69815 11.2328 10.0428 10.968L11.2615 12.5538C10.7798 12.9239 10.2486 13.2328 9.67951 13.4688ZM12.5538 11.2615L10.968 10.0428C11.2328 9.69815 11.4533 9.31881 11.6214 8.91341L13.4688 9.67951C13.2328 10.2486 12.924 10.7798 12.5538 11.2615Z" stroke="none"></path></svg>
@@ -367,7 +383,7 @@
                                     @foreach ($note->todo as $todo)
                                         <div class="row align-items-start w-100 mx-0">
 
-                                            <div class="col-3">
+                                            <div class="col-xl-3 col-12 mt-3 mt-xl-0">
                                                 <div class="custom-dropdown no-padding border d-flex gap-2 align-items-center" name="todo_status" id="todo_status"
                                                     value="">
                                                     @if ($note->status == '0')
@@ -397,32 +413,20 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-6 d-flex justify-content-start">
-
-
+                                            <div class="col-xl-6 col-12 d-flex justify-content-start mt-3 mt-xl-0">
 
                                                 <div class="d-flex flex-column">
                                                     {{-- <span class="badge bg-success mb-2 align-self-start">{{ date("d-m-Y", strtotime($note->updated_at)) }}</span> --}}
                                                     <span class="badge bg-danger mb-2 align-self-start">{{{ date("d-m-Y", strtotime($todo->todo_deadline)) }}}</span>
 
-                                                    <h4 class="text-uppercase m-0">{{ $todo->todo_name }}</h4>
+                                                    <h4 class="text-uppercase m-0" id="todo-name">{{ $todo->todo_name }}</h4>
 
-                                                    <h6 class="text-black-50  m-0">{{ $todo->todo_description }}</h6>
+                                                    <h6 class="text-black-50  m-0" id="todo-description">{{ $todo->todo_description }}</h6>
                                                 </div>
+
                                             </div>
 
-                                            <div class="col-3 d-flex justify-content-end p-0 gap-1">
-
-                                                {{-- <a href="{{ route('edittodo', $todo->id) }}"
-                                                    class="btn btn-outline-warning btn-sm custom-btn"
-                                                    style="width: unset">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-
-                                                <a href="#popup-{{ $todo->id }}"
-                                                    class="btn btn-outline-info btn-sm custom-btn" style="width: unset">
-                                                    <i class="fa-solid fa-eye"></i>
-                                                </a> --}}
+                                            <div class="col-xl-3 col-12 d-flex justify-content-end p-3 p-xl-0 gap-1 mt-3 mt-xl-0">
 
                                                 <a href="#popup-todo-{{ $todo->id }}"
                                                     class="btn btn-outline-warning btn-sm custom-btn"
