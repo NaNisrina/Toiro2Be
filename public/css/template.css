@@ -125,3 +125,14 @@
 .hidden { 
   display: none;
 }
+
+.custom-border {
+  border: 0;
+  border-top: 0.75rem solid #64a19d !important;
+  /* border-bottom: 0.75rem solid #64a19d; */
+  /* border: 0.75rem solid #64a19d; */
+}
+
+.custom-border-thin {
+  
+}

@@ -7275,6 +7275,8 @@ textarea.form-control-lg {
 
 .border {
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+
+  border-radius: 5px;
 }
 
 .border-0 {
@@ -11166,7 +11168,6 @@ body {
 }
 .contact-section .card {
   border: 0;
-  border-bottom: 0.25rem solid #64a19d;
 }
 .contact-section .card h4, .contact-section .card .h4 {
   font-size: 0.8rem;
