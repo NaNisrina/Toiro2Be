@@ -23,9 +23,10 @@ class LoginController extends Controller
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/');
+            return redirect()->intended('/')->with('success', 'Login berhasil!');
         }
 
+        // return back()->with('error', 'Email or Password does not match.');
         return back()->withErrors([
             'email'         => 'Email or Password does not match.',
         ])->onlyInput('email');
@@ -39,7 +40,7 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Logout berhasil!');
     }
 
     public function abort() {

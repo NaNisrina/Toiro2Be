@@ -42,6 +42,12 @@ class NoteController extends Controller
             'user_id'       => '',
         ], $message);
 
+        // dd($validatedData);
+
+        // if($validatedData == false) {
+        //     return redirect()->route('note#popup-create-note')
+        // } 
+
         Note::create($validatedData);
 
         return redirect()->route('note')->with('success', 'Data Created Successfully');

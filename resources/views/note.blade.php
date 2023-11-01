@@ -103,6 +103,14 @@
                                 <a class="cancel" href="#todo"></a>
 
                                 <div class="popup bg-dark text-white">
+                                    @if (count($errors) > 0)
+                                        @foreach ($errors->all() as $error)
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                {{ $error }}
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                     <h2>Create Note</h2>
 
                                     <div class="content">
@@ -115,14 +123,24 @@
 
                                             <div class="form-group my-3">
                                                 <label for="name">Name</label>
-                                                <input type="text" name="name" id="name" class="form-control"
-                                                    placeholder="enter name...">
+                                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror"
+                                                    placeholder="enter name..." value="{{ old('name') }}">
+                                                @error('name')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
 
                                             <div class="form-group my-3">
                                                 <label for="description">Description</label>
                                                 <input type="text" name="description" id="description"
-                                                    class="form-control" placeholder="description...">
+                                                    class="form-control @error('description') is-invalid @enderror" placeholder="description..." value="{{ old('description') }}">
+                                                @error('description')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
 
                                             <div class="form-group my-3">
@@ -137,8 +155,13 @@
 
                                             <div class="form-group my-3">
                                                 <label for="category">Category</label>
-                                                <input type="text" name="category" id="category" class="form-control"
+                                                <input type="text" name="category" id="category" class="form-control @error('category') is-invalid @enderror"
                                                     placeholder="category..." value="general">
+                                                @error('category')
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
 
                                             <div class="form-group my-3">
@@ -167,6 +190,12 @@
     <!-- Card -->
     <section class="contact-section bg-black">
         <div class="container px-4 px-lg-5">
+            @if (count($errors) > 0)
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p>Create Note gagal</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
 
             <div class="row gx-4 gx-lg-5">
 
@@ -250,15 +279,25 @@
                                                     <div class="form-group my-3">
                                                         <label for="name">Name</label>
                                                         <input type="text" name="name" id="name"
-                                                            value="{{ $note->name }}" class="form-control"
+                                                            value="{{ $note->name }}" class="form-control @error('name') is-invalid @enderror"
                                                             placeholder="enter name...">
+                                                        @error('name')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
 
                                                     <div class="form-group my-3">
                                                         <label for="description">Description</label>
                                                         <input type="text" name="description" id="description"
-                                                            value="{{ $note->description }}" class="form-control"
+                                                            value="{{ $note->description }}" class="form-control @error('description') is-invalid @enderror"
                                                             placeholder="description...">
+                                                        @error('description')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
 
                                                     <div class="form-group my-3">
@@ -283,8 +322,13 @@
                                                     <div class="form-group my-3">
                                                         <label for="category">Category</label>
                                                         <input type="text" name="category" id="category"
-                                                            value="{{ $note->category }}" class="form-control"
+                                                            value="{{ $note->category }}" class="form-control @error('category') is-invalid @enderror"
                                                                 placeholder="category...">
+                                                        @error('category')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
 
                                                     <div class="form-group my-3">

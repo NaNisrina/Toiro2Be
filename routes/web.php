@@ -17,13 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Login & Auth
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login.auth');
-
-// Register
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/register', [RegisterController::class, 'store'])->name('storeregister');
+Route::middleware(['guest'])->group(function () {
+    // Login & Auth
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'authenticate'])->name('login.auth');
+    
+    // Register
+    Route::get('/register', [RegisterController::class, 'index'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store'])->name('storeregister');
+});
 
 // Auth Login User
 Route::middleware(['auth', 'auth.session'])->group(function () {

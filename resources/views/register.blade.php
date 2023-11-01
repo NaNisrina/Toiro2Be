@@ -30,32 +30,29 @@
         <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 h-100 d-flex align-items-center">
             <div class="form-container flex-fill">
 
-                        <!-- Errors -->
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <!-- /Errors -->
-
                         <form class="form-horizontal" action="{{ route('storeregister') }}" method="POST">
                             @csrf
-
                             <h3 class="title">Register</h3>
                             <span class="description">To Toiro</span>
+                            <!-- Errors -->
+                                @if (count($errors) > 0)
+                                    @foreach ($errors->all() as $error)
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            {{ $error }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            <!-- /Errors -->
 
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input class="form-control" name="name" id="name" type="name" placeholder="enter name...">
+                                <input class="form-control" name="name" id="name" type="name" placeholder="enter name..." value="{{ old('name') }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input class="form-control" name="email" id="email" type="email" placeholder="enter email...">
+                                <input class="form-control" name="email" id="email" type="email" placeholder="enter email..." value="{{ old('email') }}">
                             </div>
 
                             <div class="form-group">
