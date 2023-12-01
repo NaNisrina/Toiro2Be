@@ -18,11 +18,11 @@ class RegisterController extends Controller
             'min'       => 'The :attribute minimum :min character',
             'max'       => 'The :attribute maximum :max character',
             'unique'    => 'The :attribute already exist', 
-            'regex'     => 'The :attribute gabisa basa enggres, ketik ndiri nanti'
+            'regex'     => 'The :attribute should only contain words and spaces'
         ];
 
         $validatedData = $request->validate([
-            'name'      => 'required|min:3|max:50|regex:/^[a-zA-Z0-9._]+$/',
+            'name'      => 'required|min:3|max:50|regex:/^[a-zA-Z ]+$/',
             'email'     => 'required|email',
             'password'  => 'required|min:3'
         ], $message);

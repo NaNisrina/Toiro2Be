@@ -7,6 +7,8 @@ use App\Models\Todo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 
 class NoteController extends Controller
 {
@@ -49,6 +51,9 @@ class NoteController extends Controller
         // } 
 
         Note::create($validatedData);
+
+        // Session::flash('message', 'This is a message!'); 
+        // Session::flash('alert-class', 'alert-danger'); 
 
         return redirect()->route('note')->with('success', 'Data Created Successfully');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Note;
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class TodoController extends Controller
 {
@@ -58,6 +59,9 @@ class TodoController extends Controller
         $validatedData['note_id'] = $request->note_id;
 
         Todo::create($validatedData);
+
+        // Session::flash('message', 'Create Todo Gagal!'); 
+        // Session::flash('alert-class', 'alert-danger'); 
 
         return redirect()->route('note')->with('success', 'Data Created Successfully');
     }
